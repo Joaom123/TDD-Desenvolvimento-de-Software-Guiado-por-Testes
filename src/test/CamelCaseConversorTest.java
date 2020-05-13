@@ -11,54 +11,54 @@ import org.junit.Test;
 import camelCaseConversor.CamelCaseConversor;
 
 public class CamelCaseConversorTest {
-	private List<String> listaComPalavras;
+	private List<String> listaComPalavrasQuebradas;
 	private String palavraASerQuebrada;
 	
 	@Before
 	public void inicializaArray() {
-		listaComPalavras = new ArrayList<String>();
+		listaComPalavrasQuebradas = new ArrayList<String>();
 	}
 
 	@Test
 	public void converteUmaPalavraQueComecaMinuscula() {
-		listaComPalavras.add("primeiro");
+		listaComPalavrasQuebradas.add("primeiro");
 		palavraASerQuebrada = "primeiro";
 		
-		assertEquals(listaComPalavras, CamelCaseConversor.converterCamelCase(palavraASerQuebrada));
+		assertEquals(listaComPalavrasQuebradas, CamelCaseConversor.converterCamelCase(palavraASerQuebrada));
 	}
 	
 	@Test
 	public void converteUmaPalavraQueComecaMaiuscula() {
-		listaComPalavras.add("primeiro");
+		listaComPalavrasQuebradas.add("primeiro");
 		palavraASerQuebrada = "Primeiro";
 		
-		assertEquals(listaComPalavras, CamelCaseConversor.converterCamelCase(palavraASerQuebrada));
+		assertEquals(listaComPalavrasQuebradas, CamelCaseConversor.converterCamelCase(palavraASerQuebrada));
 	}
 	
 	@Test
 	public void converteDuasPalavrasQueComecaMinuscula(){
-		listaComPalavras.add("primeiro");
-		listaComPalavras.add("segundo");
+		listaComPalavrasQuebradas.add("primeiro");
+		listaComPalavrasQuebradas.add("segundo");
 		palavraASerQuebrada = "PrimeiroSegundo";
 		
-		assertEquals(listaComPalavras, CamelCaseConversor.converterCamelCase(palavraASerQuebrada));
+		assertEquals(listaComPalavrasQuebradas, CamelCaseConversor.converterCamelCase(palavraASerQuebrada));
 	}
 	
 	@Test
 	public void converteDuasPalavrasQueComecaMaiuscula(){
-		listaComPalavras.add("primeiro");
-		listaComPalavras.add("segundo");
+		listaComPalavrasQuebradas.add("primeiro");
+		listaComPalavrasQuebradas.add("segundo");
 		palavraASerQuebrada = "primeiroSegundo";
 		
-		assertEquals(listaComPalavras, CamelCaseConversor.converterCamelCase(palavraASerQuebrada));
+		assertEquals(listaComPalavrasQuebradas, CamelCaseConversor.converterCamelCase(palavraASerQuebrada));
 	}
 	
 	@Test
 	public void converteSigla(){
-		listaComPalavras.add("CPF");
+		listaComPalavrasQuebradas.add("CPF");
 		palavraASerQuebrada = "CPF";
 		
-		assertEquals(listaComPalavras, CamelCaseConversor.converterCamelCase(palavraASerQuebrada));
+		assertEquals(listaComPalavrasQuebradas, CamelCaseConversor.converterCamelCase(palavraASerQuebrada));
 	}
 
 }
