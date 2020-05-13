@@ -1,6 +1,7 @@
 package camelCaseConversor;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 /** Requisitos
  * nome - “nome” - Ok
@@ -15,28 +16,37 @@ import java.util.List;
  * nome#Composto - Inválido → caracteres especiais não são permitidos, somente letras e números
  */
 public class CamelCaseConversor {
+	public static List<String> palavras;
 	
 	public static List<String> converterCamelCase (String original) {
-		List<String> listaComPalavras = new ArrayList<String>();
+		palavras = new ArrayList<String>();
 		
 		String palavraSeparada = "";
+		
 		for (int i = 0; i < original.length(); i++) {
-		    char c = original.charAt(i);
+		    char letraAtual = original.charAt(i);
 		    
-		    if(Character.isUpperCase(c)) {
-		    	if(palavraSeparada != "")
-		    		listaComPalavras.add(palavraSeparada);
+		    if(Character.isUpperCase(letraAtual)) {
+		    	adicionaPalavraNaoVazia(palavraSeparada);
 		    	palavraSeparada = "";
 		    }
 		    
-		    palavraSeparada += Character.toLowerCase(c);;
+		    palavraSeparada += Character.toLowerCase(letraAtual);
 		    
 		}
 		
-		if(palavraSeparada != "")
-			listaComPalavras.add(palavraSeparada);
+		adicionaPalavraNaoVazia(palavraSeparada);
 		
-		return listaComPalavras;
+		return palavras;
+	}
+	
+	public static void adicionaPalavraNaoVazia(String palavra) {
+		if(!palavra.isEmpty())
+			adicionaPalavra(palavra);
+	}
+	
+	public static void adicionaPalavra(String palavra) {
+		palavras.add(palavra);
 	}
 
 }
