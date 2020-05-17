@@ -61,4 +61,22 @@ public class CamelCaseConversorTest {
 		assertEquals(listaComPalavrasQuebradas, CamelCaseConversor.converterCamelCase(palavraASerQuebrada));
 	}
 
+	@Test
+	public void converteDuasPalavrasComSigla(){
+		listaComPalavrasQuebradas.add("numero");
+		listaComPalavrasQuebradas.add("CPF");
+		palavraASerQuebrada = "numeroCPF";
+		
+		assertEquals(listaComPalavrasQuebradas, CamelCaseConversor.converterCamelCase(palavraASerQuebrada));
+	}
+	
+	@Test
+	public void converteTresPalavrasComSiglaNoMeio(){
+		listaComPalavrasQuebradas.add("numero");
+		listaComPalavrasQuebradas.add("CPF");
+		listaComPalavrasQuebradas.add("contribuinte");
+		palavraASerQuebrada = "numeroCPFContribuinte";
+		
+		assertEquals(listaComPalavrasQuebradas, CamelCaseConversor.converterCamelCase(palavraASerQuebrada));
+	}
 }
