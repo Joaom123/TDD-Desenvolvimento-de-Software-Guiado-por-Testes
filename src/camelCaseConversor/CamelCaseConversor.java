@@ -26,11 +26,7 @@ public class CamelCaseConversor {
 		
 		for (int i = 0; i < original.length(); i++) {
 		    char letraAtual = original.charAt(i);
-		    
-		    char letraSeguinte = 'a';
-		    if(i == original.length())
-		    	original.charAt(i+1);
-		    
+
 		    if(Character.isUpperCase(letraAtual)) {
 	    		adicionaPalavraNaoVazia(palavraSeparada);
 		    	palavraSeparada = "";
@@ -42,7 +38,7 @@ public class CamelCaseConversor {
 		
 		adicionaPalavraNaoVazia(palavraSeparada);
 		
-		return juntaSigla(palavras);
+		return pegaListaDePalavrasEJuntaSiglas(palavras);
 	}
 	
 	public static void adicionaPalavraNaoVazia(String palavra) {
@@ -54,7 +50,7 @@ public class CamelCaseConversor {
 		palavras.add(palavra);
 	}
 	
-	public static List<String> juntaSigla(List<String> palavras) {
+	public static List<String> pegaListaDePalavrasEJuntaSiglas(List<String> palavras) {
 		List<String> palavrasAux = new ArrayList<String>();
 		String aux = "";
 		
@@ -70,6 +66,7 @@ public class CamelCaseConversor {
 			}
 		}
 		
+		//Caso sigla esteja no final
 		if(!aux.isEmpty()) {
 			palavrasAux.add(aux.toUpperCase());
 			aux = "";
