@@ -12,7 +12,12 @@ public class CaixaEletronico {
 	}
 	
 	public String sacar(double dinheiroASerSacado) {
-		contaCorrente.subtraiDoSaldo(dinheiroASerSacado);
+		try {
+			contaCorrente.subtraiDoSaldo(dinheiroASerSacado);
+		} catch (SaldoInsuficienteException e) {
+//			e.printStackTrace();
+			return e.getMessage();
+		}
 		return "Retire seu dinheiro";
 	}
 	

@@ -27,9 +27,10 @@ public class ContaCorrente implements ServicoRemoto {
 		saldo += dinheiroASerAdicionado;
 	}
 	
-	public void subtraiDoSaldo(double dinheiroASerSubtraido) {
+	public void subtraiDoSaldo(double dinheiroASerSubtraido) throws SaldoInsuficienteException {
 		if(saldo < dinheiroASerSubtraido)
-			return; //TODO: Lançar exceção
+			throw new SaldoInsuficienteException("Saldo insuficiente");
+			
 		saldo -= dinheiroASerSubtraido;
 	}
 
