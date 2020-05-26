@@ -58,4 +58,12 @@ public class TestCaixaEletronico {
 		assertEquals(100.0, contaCorrente.getSaldo(), 0);
 		assertEquals("Saldo insuficiente", mensagem);
 	}
+	
+	@Test
+	public void mensagemDeSaldo(){
+		String mensagemCorreta = "O saldo é R$ 100.0";
+		String mensagemRecebida = caixaEletronico.saldo();
+		
+		assertEquals(mensagemCorreta, mensagemRecebida);
+	}
 }
