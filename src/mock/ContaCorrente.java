@@ -2,17 +2,35 @@ package mock;
 
 public class ContaCorrente implements ServicoRemoto {
 	private int numero;
-	private float saldo;
+	private double saldo;
+	
+	public ContaCorrente(int numero, double saldo) {
+		this.numero = numero;
+		this.saldo = saldo;
+	}
 
 	@Override
-	public float recuperarConta(int numero) {
+	public double recuperarConta(int numero) {
 		return saldo;
 	}
 
 	@Override
 	public void persistirConta() {
-		// TODO Auto-generated method stub
 		
+	}
+	
+	public double getSaldo() {
+		return saldo;
+	}
+	
+	public void adicionaAoSaldo(double dinheiroASerAdicionado) {
+		saldo += dinheiroASerAdicionado;
+	}
+	
+	public void subtraiDoSaldo(double dinheiroASerSubtraido) {
+		if(saldo < dinheiroASerSubtraido)
+			return; //TODO: Lançar exceção
+		saldo -= dinheiroASerSubtraido;
 	}
 
 }

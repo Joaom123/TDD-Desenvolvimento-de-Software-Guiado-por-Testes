@@ -11,16 +11,18 @@ public class CaixaEletronico {
 		return "Logado";
 	}
 	
-	public String sacar() {
-		return "Dinheiro sacado";
+	public String sacar(double dinheiroASerSacado) {
+		contaCorrente.subtraiDoSaldo(dinheiroASerSacado);
+		return "Retire seu dinheiro";
 	}
 	
-	public String depositar() {
-		return "Dinheiro depositado";
+	public String depositar(double dinheiroASerDepositado) {
+		contaCorrente.adicionaAoSaldo(dinheiroASerDepositado);
+		return "Depósito recebido com sucesso";
 	}
 	
 	public String saldo(){
-		return "O saldo é R$";
+		return "O saldo é R$ " + contaCorrente.getSaldo();
 	}
 
 }
