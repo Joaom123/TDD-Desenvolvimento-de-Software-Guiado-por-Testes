@@ -3,12 +3,17 @@ package mock;
 public class CaixaEletronico {
 	private ContaCorrente contaCorrente;
 	
-	public CaixaEletronico(ContaCorrente contaCorrente) {
-		this.contaCorrente = contaCorrente;
+	public CaixaEletronico(int numeroDaConta) {
+		this.contaCorrente = ContaCorrente.recuperarConta(numeroDaConta);
 	}
 	
-	public String logar() {
-		return "Logado";
+	public String logar(int numeroDaConta) {
+		try {
+			ContaCorrente.recuperarConta(numeroDaConta);
+			return "Usuário Autenticado";
+		} catch (Exception e) {
+			return "Não foi possível autenticar o usuário";
+		}
 	}
 	
 	public String sacar(double dinheiroASerSacado) {

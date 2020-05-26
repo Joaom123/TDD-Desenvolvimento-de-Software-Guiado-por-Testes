@@ -9,9 +9,10 @@ public class ContaCorrente implements ServicoRemoto {
 		this.saldo = saldo;
 	}
 
-	@Override
-	public double recuperarConta(int numero) {
-		return saldo;
+	public static ContaCorrente recuperarConta(int numero) throws RuntimeException{
+		if (numero != 123)
+			throw new RuntimeException("Conta não existe");
+		return new ContaCorrente(numero, 100.0);
 	}
 
 	@Override

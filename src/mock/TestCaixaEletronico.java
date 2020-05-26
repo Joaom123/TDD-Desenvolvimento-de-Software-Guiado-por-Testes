@@ -1,12 +1,9 @@
-package mock.test;
+package mock;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import mock.CaixaEletronico;
-import mock.ContaCorrente;
 
 public class TestCaixaEletronico {
 	private ContaCorrente contaCorrente;
@@ -15,13 +12,17 @@ public class TestCaixaEletronico {
 	@Before
 	public void inicializaContaCorrente() {
 		contaCorrente = new ContaCorrente(123, 100.0);
-		caixaEletronico = new CaixaEletronico(contaCorrente);
+		caixaEletronico = new CaixaEletronico(123);
+	}
+	
+	@Test
+	public void logar() {
+		
 	}
 
 	@Test
 	public void depositarEExibirSaldo() {
 		double dinheiroASerDepositado = 230.0;
-		double dinheiroAntes = 100.0;
 		
 		String mensagem = caixaEletronico.depositar(dinheiroASerDepositado);
 		
