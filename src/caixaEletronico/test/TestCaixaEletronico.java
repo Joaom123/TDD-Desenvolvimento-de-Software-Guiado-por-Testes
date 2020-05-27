@@ -1,9 +1,12 @@
-package mock;
+package caixaEletronico.test;
 
 import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import caixaEletronico.src.CaixaEletronico;
+import caixaEletronico.src.ContaCorrente;
 
 public class TestCaixaEletronico {
 	private ContaCorrente contaCorrente;
@@ -12,18 +15,27 @@ public class TestCaixaEletronico {
 	@Before
 	public void inicializaContaCorrente() {
 		contaCorrente = new ContaCorrente(123, 100.0);
-		caixaEletronico = new CaixaEletronico(123);
+		caixaEletronico = new CaixaEletronico();
 	}
 	
 	@Test
-	public void logar() {
+	public void logarCorretamente() {
+		String mensagem = caixaEletronico.logar(123);
 		
+		assertEquals("Usuário Autenticado", mensagem); 
+	}
+	
+	@Test
+	public void logarFalhando(){
+		String mensagem = caixaEletronico.logar(1234);
+		
+		assertEquals("Não foi possível autenticar o usuário", mensagem);
 	}
 
 	@Test
 	public void depositarEExibirSaldo() {
 		double dinheiroASerDepositado = 230.0;
-		
+		caixaEletronico.logar(123);
 		String mensagem = caixaEletronico.depositar(dinheiroASerDepositado);
 		
 		assertEquals(330.0, contaCorrente.getSaldo(), 0);

@@ -1,15 +1,21 @@
-package mock;
+package caixaEletronico.src;
+
+import caixaEletronico.src.exception.SaldoInsuficienteException;
 
 public class CaixaEletronico {
 	private ContaCorrente contaCorrente;
+	private ServicoRemoto servicoRemoto;
+	private Hardware hardware;
 	
-	public CaixaEletronico(int numeroDaConta) {
-		this.contaCorrente = ContaCorrente.recuperarConta(numeroDaConta);
+	public CaixaEletronico(Hardware hardware, ServicoRemoto servicoRemoto) {
+		this.hardware = hardware;
+		this.servicoRemoto = servicoRemoto;
 	}
 	
-	public String logar(int numeroDaConta) {
+	public String logar(String senha) {
 		try {
-			ContaCorrente.recuperarConta(numeroDaConta);
+			String numeroDaConta = hardware.pegarNumeroDaContaCartao();
+			this.contaCorrente = servicoRemoto.recuperarConta(numeroDaConta);
 			return "Usuário Autenticado";
 		} catch (Exception e) {
 			return "Não foi possível autenticar o usuário";

@@ -1,25 +1,18 @@
-package mock;
+package caixaEletronico.src;
 
-public class ContaCorrente implements ServicoRemoto {
-	private int numero;
+import caixaEletronico.src.exception.SaldoInsuficienteException;
+
+public class ContaCorrente {
+	private String numero;
+	private String senha;
 	private double saldo;
 	
-	public ContaCorrente(int numero, double saldo) {
+	public ContaCorrente(String numero, String senha, double saldo) {
 		this.numero = numero;
+		this.senha = senha;
 		this.saldo = saldo;
 	}
 
-	public static ContaCorrente recuperarConta(int numero) throws RuntimeException{
-		if (numero != 123)
-			throw new RuntimeException("Conta não existe");
-		return new ContaCorrente(numero, 100.0);
-	}
-
-	@Override
-	public void persistirConta() {
-		
-	}
-	
 	public double getSaldo() {
 		return saldo;
 	}
