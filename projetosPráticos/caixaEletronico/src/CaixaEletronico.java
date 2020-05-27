@@ -25,6 +25,9 @@ public class CaixaEletronico {
 	public String sacar(double dinheiroASerSacado) {
 		try {
 			contaCorrente.subtraiDoSaldo(dinheiroASerSacado);
+			servicoRemoto.persistirConta();
+			hardware.entregarDinheiro();
+			
 			return "Retire seu dinheiro";
 		} catch (SaldoInsuficienteException e) {
 			return e.getMessage();
@@ -32,7 +35,9 @@ public class CaixaEletronico {
 	}
 	
 	public String depositar(double dinheiroASerDepositado) {
+		hardware.lerEnvelope();
 		contaCorrente.adicionaAoSaldo(dinheiroASerDepositado);
+		servicoRemoto.persistirConta();
 		return "Depósito recebido com sucesso";
 	}
 	

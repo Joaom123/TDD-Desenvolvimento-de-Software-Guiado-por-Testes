@@ -7,35 +7,42 @@ import org.junit.Test;
 
 import caixaEletronico.src.CaixaEletronico;
 import caixaEletronico.src.ContaCorrente;
+import caixaEletronico.test.mock.HardwareMock;
+import caixaEletronico.test.mock.ServicoRemotoMock;
 
 public class CaixaEletronicoTest {
 	private ContaCorrente contaCorrente;
 	private CaixaEletronico caixaEletronico;
+	private HardwareMock hardwareMock;
+	private ServicoRemotoMock servicoRemotoMock;
 	
 	@Before
-	public void inicializaContaCorrente() {
-		contaCorrente = new ContaCorrente(123, 100.0);
-		caixaEletronico = new CaixaEletronico();
+	public void setUp() {
+		hardwareMock = new HardwareMock();
+		servicoRemotoMock = new ServicoRemotoMock();
+		caixaEletronico = new CaixaEletronico(hardwareMock, servicoRemotoMock);
+		contaCorrente = new ContaCorrente("123123", "senha", 100.0);
+		
+		caixaEletronico.logar("senha");
 	}
 	
-	@Test
-	public void logarCorretamente() {
-		String mensagem = caixaEletronico.logar(123);
-		
-		assertEquals("Usuário Autenticado", mensagem); 
-	}
-	
-	@Test
-	public void logarFalhando(){
-		String mensagem = caixaEletronico.logar(1234);
-		
-		assertEquals("Não foi possível autenticar o usuário", mensagem);
-	}
+//	@Test
+//	public void logarCorretamente() {
+//		String mensagem = caixaEletronico.logar(123);
+//		
+//		assertEquals("Usuário Autenticado", mensagem); 
+//	}
+//	
+//	@Test
+//	public void logarFalhando(){
+//		String mensagem = caixaEletronico.logar(1234);
+//		
+//		assertEquals("Não foi possível autenticar o usuário", mensagem);
+//	}
 
 	@Test
 	public void depositarEExibirSaldo() {
 		double dinheiroASerDepositado = 230.0;
-		caixaEletronico.logar(123);
 		String mensagem = caixaEletronico.depositar(dinheiroASerDepositado);
 		
 		assertEquals(330.0, contaCorrente.getSaldo(), 0);
