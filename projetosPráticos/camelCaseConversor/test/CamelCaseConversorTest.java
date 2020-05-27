@@ -1,4 +1,4 @@
-package camelCaseConversor;
+package camelCaseConversor.test;
 
 import static org.junit.Assert.*;
 
@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import camelCaseConversor.src.CamelCaseConversor;
 
 public class CamelCaseConversorTest {
 	private List<String> listaComPalavrasQuebradas;

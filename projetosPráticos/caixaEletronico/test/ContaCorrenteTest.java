@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class TestContaCorrente {
+public class ContaCorrenteTest {
 
 	@Test
 	public void test() {

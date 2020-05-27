@@ -1,4 +1,7 @@
-package pilha;
+package pilha.src;
+
+import pilha.src.exception.PilhaCheiaException;
+import pilha.src.exception.PilhaVaziaException;
 
 public class Pilha {
 	private int quantidade = 0;

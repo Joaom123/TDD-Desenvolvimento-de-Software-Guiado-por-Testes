@@ -1,4 +1,4 @@
-package camelCaseConversor;
+package camelCaseConversor.src;
 
 import java.util.ArrayList;
 import java.util.List;

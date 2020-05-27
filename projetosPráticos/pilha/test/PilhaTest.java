@@ -1,8 +1,12 @@
-package pilha;
+package pilha.test;
 
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
+
+import pilha.src.Pilha;
+import pilha.src.exception.PilhaCheiaException;
+import pilha.src.exception.PilhaVaziaException;
 
 public class PilhaTest {
 	private Pilha pilha;

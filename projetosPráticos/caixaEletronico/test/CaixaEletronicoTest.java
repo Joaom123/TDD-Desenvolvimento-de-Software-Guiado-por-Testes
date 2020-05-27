@@ -8,7 +8,7 @@ import org.junit.Test;
 import caixaEletronico.src.CaixaEletronico;
 import caixaEletronico.src.ContaCorrente;
 
-public class TestCaixaEletronico {
+public class CaixaEletronicoTest {
 	private ContaCorrente contaCorrente;
 	private CaixaEletronico caixaEletronico;
 	
