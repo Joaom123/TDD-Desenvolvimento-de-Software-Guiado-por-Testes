@@ -17,6 +17,14 @@ public class ContaCorrente {
 		return saldo;
 	}
 	
+	public String getNumero() {
+		return numero;
+	}
+	
+	public String getSenha() {
+		return senha;
+	}
+	
 	public void adicionaAoSaldo(double dinheiroASerAdicionado) {
 		saldo += dinheiroASerAdicionado;
 	}

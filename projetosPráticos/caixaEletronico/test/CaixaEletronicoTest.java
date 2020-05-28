@@ -21,25 +21,13 @@ public class CaixaEletronicoTest {
 		hardwareMock = new HardwareMock();
 		servicoRemotoMock = new ServicoRemotoMock();
 		caixaEletronico = new CaixaEletronico(hardwareMock, servicoRemotoMock);
+		
 		contaCorrente = new ContaCorrente("123123", "senha", 100.0);
+		servicoRemotoMock.setContaCorrenteRecuperada(contaCorrente);
 		
 		caixaEletronico.logar("senha");
 	}
 	
-//	@Test
-//	public void logarCorretamente() {
-//		String mensagem = caixaEletronico.logar(123);
-//		
-//		assertEquals("Usuário Autenticado", mensagem); 
-//	}
-//	
-//	@Test
-//	public void logarFalhando(){
-//		String mensagem = caixaEletronico.logar(1234);
-//		
-//		assertEquals("Não foi possível autenticar o usuário", mensagem);
-//	}
-
 	@Test
 	public void depositarEExibirSaldo() {
 		double dinheiroASerDepositado = 230.0;

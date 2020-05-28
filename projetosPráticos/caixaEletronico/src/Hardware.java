@@ -1,9 +1,11 @@
 package caixaEletronico.src;
 
+import caixaEletronico.src.exception.ProblemaHardwareException;
+
 public interface Hardware {
-	public String pegarNumeroDaContaCartao();
+	public String pegarNumeroDaContaCartao() throws ProblemaHardwareException;
 	
-	public void entregarDinheiro();
+	public void entregarDinheiro() throws ProblemaHardwareException;
 	
-	public void lerEnvelope();
+	public void lerEnvelope() throws ProblemaHardwareException;
 }

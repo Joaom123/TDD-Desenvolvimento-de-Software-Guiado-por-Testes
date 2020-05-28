@@ -1,5 +1,7 @@
 package caixaEletronico.src;
 
+import caixaEletronico.src.exception.NumeroDaContaNaoEncontradoException;
+import caixaEletronico.src.exception.ProblemaHardwareException;
 import caixaEletronico.src.exception.SaldoInsuficienteException;
 
 public class CaixaEletronico {
@@ -12,32 +14,31 @@ public class CaixaEletronico {
 		this.servicoRemoto = servicoRemoto;
 	}
 	
-	public String logar(String senha) {
-		try {
-			String numeroDaConta = hardware.pegarNumeroDaContaCartao();
-			this.contaCorrente = servicoRemoto.recuperarConta(numeroDaConta);
-			return "Usuário Autenticado";
-		} catch (Exception e) {
-			return "Não foi possível autenticar o usuário";
-		}
+	public String logar(String senha) 
+			throws RuntimeException, ProblemaHardwareException, NumeroDaContaNaoEncontradoException{
+		String numeroDaConta = hardware.pegarNumeroDaContaCartao();
+		this.contaCorrente = servicoRemoto.recuperarConta(numeroDaConta);
+		
+		if(this.contaCorrente.getSenha() != senha)
+			throw new RuntimeException("erro");
+		
+		return "Usuário Autenticado";
 	}
 	
-	public String sacar(double dinheiroASerSacado) {
-		try {
-			contaCorrente.subtraiDoSaldo(dinheiroASerSacado);
-			servicoRemoto.persistirConta();
-			hardware.entregarDinheiro();
-			
-			return "Retire seu dinheiro";
-		} catch (SaldoInsuficienteException e) {
-			return e.getMessage();
-		}
+	public String sacar(double dinheiroASerSacado) 
+			throws SaldoInsuficienteException, ProblemaHardwareException {
+		contaCorrente.subtraiDoSaldo(dinheiroASerSacado);
+		servicoRemoto.persistirConta(contaCorrente);
+		hardware.entregarDinheiro();
+		
+		return "Retire seu dinheiro";
 	}
 	
-	public String depositar(double dinheiroASerDepositado) {
+	public String depositar(double dinheiroASerDepositado) 
+			throws ProblemaHardwareException {
 		hardware.lerEnvelope();
 		contaCorrente.adicionaAoSaldo(dinheiroASerDepositado);
-		servicoRemoto.persistirConta();
+		servicoRemoto.persistirConta(contaCorrente);
 		return "Depósito recebido com sucesso";
 	}
 	
