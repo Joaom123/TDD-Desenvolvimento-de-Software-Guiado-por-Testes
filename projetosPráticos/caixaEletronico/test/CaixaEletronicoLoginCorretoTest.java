@@ -10,7 +10,7 @@ import caixaEletronico.src.ContaCorrente;
 import caixaEletronico.test.mock.HardwareMock;
 import caixaEletronico.test.mock.ServicoRemotoMock;
 
-public class CaixaEletronicoTest {
+public class CaixaEletronicoLoginCorretoTest {
 	private ContaCorrente contaCorrente;
 	private CaixaEletronico caixaEletronico;
 	private HardwareMock hardwareMock;
@@ -20,16 +20,17 @@ public class CaixaEletronicoTest {
 	public void setUp() {
 		hardwareMock = new HardwareMock();
 		servicoRemotoMock = new ServicoRemotoMock();
-		caixaEletronico = new CaixaEletronico(hardwareMock, servicoRemotoMock);
-		
 		contaCorrente = new ContaCorrente("123123", "senha", 100.0);
-		servicoRemotoMock.setContaCorrenteRecuperada(contaCorrente);
 		
+		servicoRemotoMock.setContaCorrenteRecuperada(contaCorrente);
+		hardwareMock.setNumeroDaContaCartao(contaCorrente.getNumero());
+		
+		caixaEletronico = new CaixaEletronico(hardwareMock, servicoRemotoMock);
 		caixaEletronico.logar("senha");
 	}
 	
 	@Test
-	public void depositarEExibirSaldo() {
+	public void depositarEExibeMensagem() {
 		double dinheiroASerDepositado = 230.0;
 		String mensagem = caixaEletronico.depositar(dinheiroASerDepositado);
 		
@@ -38,7 +39,7 @@ public class CaixaEletronicoTest {
 	}
 	
 	@Test
-	public void sacarValorInferiorAoSaldo(){
+	public void sacarValorInferiorAoSaldoEExibeMensagem(){
 		double dinheiroASerSacado = 50.0;
 		
 		String mensagem = caixaEletronico.sacar(dinheiroASerSacado);
@@ -48,7 +49,7 @@ public class CaixaEletronicoTest {
 	}
 
 	@Test
-	public void sacarValorIgualAoSaldo(){
+	public void sacarValorIgualAoSaldoEExibeMensagem(){
 		double dinheiroASerSacado = 100.0;
 		
 		String mensagem = caixaEletronico.sacar(dinheiroASerSacado);
@@ -58,7 +59,7 @@ public class CaixaEletronicoTest {
 	}
 
 	@Test
-	public void sacarValorSuperiorAoSaldo(){
+	public void sacarValorSuperiorAoSaldoEExibeMensagem(){
 		double dinheiroASerSacado = 150.0;
 		
 		String mensagem = caixaEletronico.sacar(dinheiroASerSacado);
@@ -68,7 +69,7 @@ public class CaixaEletronicoTest {
 	}
 	
 	@Test
-	public void mensagemDeSaldo(){
+	public void exibeSaldo(){
 		String mensagemCorreta = "O saldo é R$ 100.0";
 		String mensagemRecebida = caixaEletronico.saldo();
 		
