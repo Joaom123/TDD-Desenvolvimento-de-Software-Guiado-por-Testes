@@ -15,7 +15,7 @@ public class CamelCaseConversorTest {
 	private String palavraASerQuebrada;
 	
 	@Before
-	public void inicializaArray() {
+	public void setUp() {
 		listaComPalavrasQuebradas = new ArrayList<String>();
 	}
 
@@ -42,7 +42,7 @@ public class CamelCaseConversorTest {
 		listaComPalavrasQuebradas.add("primeiro");
 		listaComPalavrasQuebradas.add("segundo");
 		
-		palavraASerQuebrada = "PrimeiroSegundo";
+		palavraASerQuebrada = "primeiroSegundo";
 		
 		assertEquals(listaComPalavrasQuebradas, CamelCaseConversor.converterCamelCase(palavraASerQuebrada));
 	}
@@ -52,7 +52,7 @@ public class CamelCaseConversorTest {
 		listaComPalavrasQuebradas.add("primeiro");
 		listaComPalavrasQuebradas.add("segundo");
 		
-		palavraASerQuebrada = "primeiroSegundo";
+		palavraASerQuebrada = "PrimeiroSegundo";
 		
 		assertEquals(listaComPalavrasQuebradas, CamelCaseConversor.converterCamelCase(palavraASerQuebrada));
 	}
@@ -91,14 +91,38 @@ public class CamelCaseConversorTest {
 	public void converteTresPalavrasComNumeroNoMeio(){
 		listaComPalavrasQuebradas.add("recupera");
 		listaComPalavrasQuebradas.add("10");
-		listaComPalavrasQuebradas.add("Primeiros");
+		listaComPalavrasQuebradas.add("primeiros");
 		
 		palavraASerQuebrada = "recupera10Primeiros";
 		
 		assertEquals(listaComPalavrasQuebradas, CamelCaseConversor.converterCamelCase(palavraASerQuebrada));
 	}
-	/*
+	
 	@Test
+	public void converteCasoTenhaConjunçõesCoordenativas(){
+		listaComPalavrasQuebradas.add("estado");
+		listaComPalavrasQuebradas.add("E");
+		listaComPalavrasQuebradas.add("escola");
+		listaComPalavrasQuebradas.add("E");
+		listaComPalavrasQuebradas.add("família");
+		
+		palavraASerQuebrada = "estadoEEscolaEFamília";
+		
+		assertEquals(listaComPalavrasQuebradas, CamelCaseConversor.converterCamelCase(palavraASerQuebrada));
+	}
+	
+	@Test
+	public void converteCasoNumerosESiglasEstejamJuntos(){
+		listaComPalavrasQuebradas.add("tenho");
+		listaComPalavrasQuebradas.add("2");
+		listaComPalavrasQuebradas.add("CPF");
+		
+		palavraASerQuebrada = "Tenho2CPF";
+		
+		assertEquals(listaComPalavrasQuebradas, CamelCaseConversor.converterCamelCase(palavraASerQuebrada));
+	}
+	/*
+	@Test //Pegar ex
 	public void naoConverteComNumeroNoInicio(){
 		listaComPalavrasQuebradas.add("10");
 		listaComPalavrasQuebradas.add("Primeiros");
