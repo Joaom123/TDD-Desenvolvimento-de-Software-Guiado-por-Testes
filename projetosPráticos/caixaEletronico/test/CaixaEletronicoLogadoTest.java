@@ -10,7 +10,7 @@ import caixaEletronico.src.ContaCorrente;
 import caixaEletronico.test.mock.HardwareMock;
 import caixaEletronico.test.mock.ServicoRemotoMock;
 
-public class CaixaEletronicoLoginCorretoTest {
+public class CaixaEletronicoLogadoTest {
 	private ContaCorrente contaCorrente;
 	private CaixaEletronico caixaEletronico;
 	private HardwareMock hardwareMock;
