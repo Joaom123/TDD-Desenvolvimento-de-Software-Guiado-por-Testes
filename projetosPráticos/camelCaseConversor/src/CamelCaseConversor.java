@@ -2,7 +2,6 @@ package camelCaseConversor.src;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import camelCaseConversor.src.exception.ComecaComNumeroException;
 import camelCaseConversor.src.exception.TemCaractereEspecialException;
 
@@ -10,12 +9,9 @@ public class CamelCaseConversor {
 	public static List<String> palavrasSeparadas;
 	public static String palavraSeparada;
 	
-	
 	public static List<String> converterCamelCase (String fraseCamelCase) 
 			throws ComecaComNumeroException, TemCaractereEspecialException {
-		palavrasSeparadas = new ArrayList<String>();
-		palavraSeparada = "";
-		
+		inicializaVariaveis();
 		lancaExcecaoCasoComeceComNumero(fraseCamelCase);
 		
 		for (int i = 0; i < fraseCamelCase.length(); i++) {
@@ -25,27 +21,31 @@ public class CamelCaseConversor {
 		    
 		    adicionaPalavraNaoVaziaCasoLetraMaiuscula(letra);
 		    adicionaPalavraNaoVaziaCasoNumero(letra);
+		    
 		    palavraSeparada += Character.toLowerCase(letra);
 		}
 		
-		adicionaPalavraNaoVazia(palavraSeparada); //adicionar a úçtima palavra formada
+		adicionaPalavraNaoVazia(palavraSeparada); //adiciona última palavra formada
+		juntaSiglas();
 		
-		return pegaListaDePalavrasEJuntaSiglas(palavrasSeparadas);
+		return palavrasSeparadas;
 	}
 	
-	public static void lancaExcecaoCasoComeceComNumero (String fraseCamelCase) throws ComecaComNumeroException {
+	public static void inicializaVariaveis() {
+		palavrasSeparadas = new ArrayList<String>();
+		palavraSeparada = "";
+	}
+	
+	public static void lancaExcecaoCasoComeceComNumero (String fraseCamelCase) 
+			throws ComecaComNumeroException {
 		if(Character.isDigit(fraseCamelCase.charAt(0)))
 			throw new ComecaComNumeroException();
 	}
 	
-	public static void lancaExcecaoCasoSejaCaractereEspecial (char letra) throws TemCaractereEspecialException {
+	public static void lancaExcecaoCasoSejaCaractereEspecial (char letra) 
+			throws TemCaractereEspecialException {
 		if(!Character.isAlphabetic(letra) && !Character.isDigit(letra))
 			throw new TemCaractereEspecialException();
-	}
-	
-	public static void adicionaPalavraNaoVazia(String palavra) {
-		if(!palavra.isEmpty())
-			palavrasSeparadas.add(palavra);
 	}
 	
 	public static void adicionaPalavraNaoVaziaCasoLetraMaiuscula (char ch) {
@@ -62,29 +62,34 @@ public class CamelCaseConversor {
 	    }
 	}
 	
-	public static List<String> pegaListaDePalavrasEJuntaSiglas(List<String> palavras) {
+	public static void adicionaPalavraNaoVazia(String palavra) {
+		if(!palavra.isEmpty())
+			palavrasSeparadas.add(palavra);
+	}
+	
+	public static void juntaSiglas() {
 		List<String> palavrasAux = new ArrayList<String>();
-		String aux = "";
+		String palavraAux = "";
 		
-		for (String palavra : palavras) {
-			if (palavra.length() == 1) {
-				aux += palavra;
+		for (String palavraSeparada : palavrasSeparadas) {
+			if (palavraSeparada.length() == 1) {
+				palavraAux += palavraSeparada;
 			}else {
-				if(!aux.isEmpty()) {
-					palavrasAux.add(aux.toUpperCase());
-					aux = "";
+				if(!palavraAux.isEmpty()) {
+					palavrasAux.add(palavraAux.toUpperCase());
+					palavraAux = "";
 				}
-				palavrasAux.add(palavra);
+				palavrasAux.add(palavraSeparada);
 			}
 		}
 		
 		//Caso sigla no final
-		if(!aux.isEmpty()) {
-			palavrasAux.add(aux.toUpperCase());
-			aux = "";
+		if(!palavraAux.isEmpty()) {
+			palavrasAux.add(palavraAux.toUpperCase());
+			palavraAux = "";
 		}
 		
-		return palavrasAux;
+		palavrasSeparadas = palavrasAux;
 	}
 
 }
