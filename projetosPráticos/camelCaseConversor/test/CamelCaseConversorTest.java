@@ -1,14 +1,13 @@
 package camelCaseConversor.test;
 
 import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
-
 import camelCaseConversor.src.CamelCaseConversor;
+import camelCaseConversor.src.exception.ComecaComNumeroException;
+import camelCaseConversor.src.exception.TemCaractereEspecialException;
 
 public class CamelCaseConversorTest {
 	private List<String> listaComPalavrasQuebradas;
@@ -20,7 +19,7 @@ public class CamelCaseConversorTest {
 	}
 
 	@Test
-	public void converteUmaPalavraQueComecaMinuscula() {
+	public void converteUmaPalavraQueComecaMinuscula() throws ComecaComNumeroException, TemCaractereEspecialException {
 		listaComPalavrasQuebradas.add("primeiro");
 		
 		palavraASerQuebrada = "primeiro";
@@ -29,7 +28,7 @@ public class CamelCaseConversorTest {
 	}
 	
 	@Test
-	public void converteUmaPalavraQueComecaMaiuscula() {
+	public void converteUmaPalavraQueComecaMaiuscula() throws ComecaComNumeroException, TemCaractereEspecialException {
 		listaComPalavrasQuebradas.add("primeiro");
 		
 		palavraASerQuebrada = "Primeiro";
@@ -38,7 +37,9 @@ public class CamelCaseConversorTest {
 	}
 	
 	@Test
-	public void converteDuasPalavrasQueComecaMinuscula(){
+	public void converteDuasPalavrasQueComecaMinuscula() 
+			throws ComecaComNumeroException, TemCaractereEspecialException
+	{
 		listaComPalavrasQuebradas.add("primeiro");
 		listaComPalavrasQuebradas.add("segundo");
 		
@@ -48,7 +49,9 @@ public class CamelCaseConversorTest {
 	}
 	
 	@Test
-	public void converteDuasPalavrasQueComecaMaiuscula(){
+	public void converteDuasPalavrasQueComecaMaiuscula() 
+			throws ComecaComNumeroException, TemCaractereEspecialException
+	{
 		listaComPalavrasQuebradas.add("primeiro");
 		listaComPalavrasQuebradas.add("segundo");
 		
@@ -58,7 +61,7 @@ public class CamelCaseConversorTest {
 	}
 	
 	@Test
-	public void converteSigla(){
+	public void converteSigla() throws ComecaComNumeroException, TemCaractereEspecialException{
 		listaComPalavrasQuebradas.add("CPF");
 		
 		palavraASerQuebrada = "CPF";
@@ -67,7 +70,7 @@ public class CamelCaseConversorTest {
 	}
 
 	@Test
-	public void converteDuasPalavrasComSigla(){
+	public void converteDuasPalavrasComSigla() throws ComecaComNumeroException, TemCaractereEspecialException{
 		listaComPalavrasQuebradas.add("numero");
 		listaComPalavrasQuebradas.add("CPF");
 		
@@ -77,7 +80,7 @@ public class CamelCaseConversorTest {
 	}
 	
 	@Test
-	public void converteTresPalavrasComSiglaNoMeio(){
+	public void converteTresPalavrasComSiglaNoMeio() throws ComecaComNumeroException, TemCaractereEspecialException{
 		listaComPalavrasQuebradas.add("numero");
 		listaComPalavrasQuebradas.add("CPF");
 		listaComPalavrasQuebradas.add("contribuinte");
@@ -88,7 +91,7 @@ public class CamelCaseConversorTest {
 	}
 	
 	@Test
-	public void converteTresPalavrasComNumeroNoMeio(){
+	public void converteTresPalavrasComNumeroNoMeio() throws ComecaComNumeroException, TemCaractereEspecialException{
 		listaComPalavrasQuebradas.add("recupera");
 		listaComPalavrasQuebradas.add("10");
 		listaComPalavrasQuebradas.add("primeiros");
@@ -99,7 +102,9 @@ public class CamelCaseConversorTest {
 	}
 	
 	@Test
-	public void converteCasoTenhaConjunçõesCoordenativas(){
+	public void converteCasoTenhaConjunçõesCoordenativas() 
+			throws ComecaComNumeroException, TemCaractereEspecialException
+	{
 		listaComPalavrasQuebradas.add("estado");
 		listaComPalavrasQuebradas.add("E");
 		listaComPalavrasQuebradas.add("escola");
@@ -111,8 +116,26 @@ public class CamelCaseConversorTest {
 		assertEquals(listaComPalavrasQuebradas, CamelCaseConversor.converterCamelCase(palavraASerQuebrada));
 	}
 	
+	@Test(expected = ComecaComNumeroException.class)
+	public void naoConverteComNumeroNoInicio() throws ComecaComNumeroException, TemCaractereEspecialException{
+		palavraASerQuebrada = "10Primeiros";
+		
+		CamelCaseConversor.converterCamelCase(palavraASerQuebrada);
+	}
+	
+	@Test(expected = TemCaractereEspecialException.class)
+	public void naoConverteComCaractereEspecial() 
+			throws ComecaComNumeroException, TemCaractereEspecialException
+	{
+		palavraASerQuebrada = "nome#Composto";
+		
+		CamelCaseConversor.converterCamelCase(palavraASerQuebrada);
+	}
+	
 	@Test
-	public void converteCasoNumerosESiglasEstejamJuntos(){
+	public void converteCasoNumerosESiglasEstejamJuntos() 
+			throws ComecaComNumeroException, TemCaractereEspecialException
+	{
 		listaComPalavrasQuebradas.add("tenho");
 		listaComPalavrasQuebradas.add("2");
 		listaComPalavrasQuebradas.add("CPF");
@@ -121,14 +144,4 @@ public class CamelCaseConversorTest {
 		
 		assertEquals(listaComPalavrasQuebradas, CamelCaseConversor.converterCamelCase(palavraASerQuebrada));
 	}
-	/*
-	@Test //Pegar ex
-	public void naoConverteComNumeroNoInicio(){
-		listaComPalavrasQuebradas.add("10");
-		listaComPalavrasQuebradas.add("Primeiros");
-		
-		palavraASerQuebrada = "10Primeiros";
-		
-		assertEquals(listaComPalavrasQuebradas, CamelCaseConversor.converterCamelCase(palavraASerQuebrada));
-	}*/
 }
