@@ -13,5 +13,6 @@ O método deve possuir a seguinte assinatura: "public static List<String> conver
 - [x] numeroCPF - “numero”, “CPF”
 - [x] numeroCPFContribuinte - “numero”, “CPF”, “contribuinte”
 - [x] recupera10Primeiros - “recupera”, “10”, “primeiros”
-- [ ] 10Primeiros - Inválido → não deve começar com números
-- [ ] nome#Composto - Inválido → caracteres especiais não são permitidos, somente letras e números
+- [x] 10Primeiros - Inválido, não deve começar com números
+- [x] nome#Composto - Inválido, caracteres especiais não são permitidos, somente letras e números
+- [ ] Extra: Tenho2CNPJ - "tenho", "2", "CNPJ"

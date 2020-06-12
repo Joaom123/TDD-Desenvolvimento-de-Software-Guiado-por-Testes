@@ -18,14 +18,11 @@ public class CamelCaseConversor {
 		    char letra = fraseCamelCase.charAt(i);
 
 		    lancaExcecaoCasoSejaCaractereEspecial(letra);
-		    
-		    adicionaPalavraNaoVaziaCasoLetraMaiuscula(letra);
-		    adicionaPalavraNaoVaziaCasoNumero(letra);
-		    
-		    palavraSeparada += Character.toLowerCase(letra);
+		    quebraPalavra(letra);
+		    adicionaLetraAPalavraSeparada(letra);
 		}
 		
-		adicionaPalavraNaoVazia(palavraSeparada); //adiciona última palavra formada
+		adicionaPalavraNaoVazia(palavraSeparada); //adiciona última palavra separada
 		juntaSiglas();
 		
 		return palavrasSeparadas;
@@ -33,7 +30,12 @@ public class CamelCaseConversor {
 	
 	public static void inicializaVariaveis() {
 		palavrasSeparadas = new ArrayList<String>();
-		palavraSeparada = "";
+		limpaPalavraSeparada();
+	}
+	
+	public static void quebraPalavra(char letra) {
+		adicionaPalavraNaoVaziaCasoLetraMaiuscula(letra);
+	    adicionaPalavraNaoVaziaCasoNumero(letra);
 	}
 	
 	public static void lancaExcecaoCasoComeceComNumero (String fraseCamelCase) 
@@ -51,15 +53,19 @@ public class CamelCaseConversor {
 	public static void adicionaPalavraNaoVaziaCasoLetraMaiuscula (char ch) {
 		if(Character.isUpperCase(ch)) {
     		adicionaPalavraNaoVazia(palavraSeparada);
-    		palavraSeparada = "";
+    		limpaPalavraSeparada();
 	    }
 	}
 	
 	public static void adicionaPalavraNaoVaziaCasoNumero (char ch) {
 		if(Character.isDigit(ch)) {
 	    	adicionaPalavraNaoVazia(palavraSeparada);
-	    	palavraSeparada = "";
+	    	limpaPalavraSeparada();
 	    }
+	}
+	
+	public static void adicionaLetraAPalavraSeparada (char ch) {
+		palavraSeparada += Character.toLowerCase(ch);
 	}
 	
 	public static void adicionaPalavraNaoVazia(String palavra) {
@@ -67,11 +73,16 @@ public class CamelCaseConversor {
 			palavrasSeparadas.add(palavra);
 	}
 	
+	public static void limpaPalavraSeparada() {
+		palavraSeparada = "";
+	}
+	
 	public static void juntaSiglas() {
 		List<String> palavrasAux = new ArrayList<String>();
 		String palavraAux = "";
 		
 		for (String palavraSeparada : palavrasSeparadas) {
+			System.out.println(palavraSeparada);
 			if (palavraSeparada.length() == 1) {
 				palavraAux += palavraSeparada;
 			}else {

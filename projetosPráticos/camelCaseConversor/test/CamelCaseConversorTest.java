@@ -128,7 +128,7 @@ public class CamelCaseConversorTest {
 		assertEquals(palavrasSeparadas, CamelCaseConversor.converterCamelCase(fraseCamelCase));
 	}
 	
-	@Test(expected = ComecaComNumeroException.class)
+	@Test(expected=ComecaComNumeroException.class)
 	public void naoConverteComNumeroNoInicio() 
 			throws ComecaComNumeroException, TemCaractereEspecialException
 	{
@@ -137,7 +137,7 @@ public class CamelCaseConversorTest {
 		CamelCaseConversor.converterCamelCase(fraseCamelCase);
 	}
 	
-	@Test(expected = TemCaractereEspecialException.class)
+	@Test(expected=TemCaractereEspecialException.class)
 	public void naoConverteComCaractereEspecial() 
 			throws ComecaComNumeroException, TemCaractereEspecialException
 	{
