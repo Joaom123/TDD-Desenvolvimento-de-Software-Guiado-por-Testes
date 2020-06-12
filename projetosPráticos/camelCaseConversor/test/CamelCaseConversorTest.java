@@ -158,4 +158,23 @@ public class CamelCaseConversorTest {
 		
 		assertEquals(palavrasSeparadas, CamelCaseConversor.converterCamelCase(fraseCamelCase));
 	}
+	
+	@Test
+	public void converteCasoVariasSiglasENumerosEPalavrasCompostas() 
+			throws ComecaComNumeroException, TemCaractereEspecialException
+	{
+		fraseCamelCase = "Tenho2CNPJ34CPFSeguinte43CMPP21";
+
+		palavrasSeparadas.add("tenho");
+		palavrasSeparadas.add("2");
+		palavrasSeparadas.add("CNPJ");
+		palavrasSeparadas.add("34");
+		palavrasSeparadas.add("CPF");
+		palavrasSeparadas.add("seguinte");
+		palavrasSeparadas.add("43");
+		palavrasSeparadas.add("CMPP");
+		palavrasSeparadas.add("21");
+		
+		assertEquals(palavrasSeparadas, CamelCaseConversor.converterCamelCase(fraseCamelCase));
+	}
 }
