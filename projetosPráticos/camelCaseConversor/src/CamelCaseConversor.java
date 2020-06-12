@@ -29,60 +29,60 @@ public class CamelCaseConversor {
 		return palavrasSeparadas;
 	}
 	
-	public static void inicializaVariaveis() {
+	private static void inicializaVariaveis() {
 		limpaPalavrasSeparadas();
 		limpaPalavraSeparada();
 	}
 	
-	public static void quebraPalavra(char letra) {
+	private static void quebraPalavra(char letra) {
 		adicionaPalavraNaoVaziaCasoLetraMaiuscula(letra);
 	    adicionaPalavraNaoVaziaCasoNumero(letra);
 	}
 	
-	public static void lancaExcecaoCasoComeceComNumero (String fraseCamelCase) 
+	private static void lancaExcecaoCasoComeceComNumero (String fraseCamelCase) 
 			throws ComecaComNumeroException {
 		if(Character.isDigit(fraseCamelCase.charAt(0)))
 			throw new ComecaComNumeroException();
 	}
 	
-	public static void lancaExcecaoCasoSejaCaractereEspecial (char letra) 
+	private static void lancaExcecaoCasoSejaCaractereEspecial (char letra) 
 			throws TemCaractereEspecialException {
 		if(!Character.isAlphabetic(letra) && !Character.isDigit(letra))
 			throw new TemCaractereEspecialException();
 	}
 	
-	public static void adicionaPalavraNaoVaziaCasoLetraMaiuscula (char ch) {
+	private static void adicionaPalavraNaoVaziaCasoLetraMaiuscula (char ch) {
 		if(Character.isUpperCase(ch)) {
     		adicionaPalavraNaoVazia(palavraSeparada);
     		limpaPalavraSeparada();
 	    }
 	}
 	
-	public static void adicionaPalavraNaoVaziaCasoNumero (char ch) {
+	private static void adicionaPalavraNaoVaziaCasoNumero (char ch) {
 		if(Character.isDigit(ch)) {
 	    	adicionaPalavraNaoVazia(palavraSeparada);
 	    	limpaPalavraSeparada();
 	    }
 	}
 	
-	public static void adicionaLetraAPalavraSeparada (char ch) {
+	private static void adicionaLetraAPalavraSeparada (char ch) {
 		palavraSeparada += Character.toLowerCase(ch);
 	}
 	
-	public static void adicionaPalavraNaoVazia(String palavra) {
+	private static void adicionaPalavraNaoVazia(String palavra) {
 		if(!palavra.isEmpty())
 			palavrasSeparadas.add(palavra);
 	}
 	
-	public static void limpaPalavraSeparada() {
+	private static void limpaPalavraSeparada() {
 		palavraSeparada = "";
 	}
 	
-	public static void limpaPalavrasSeparadas() {
+	private static void limpaPalavrasSeparadas() {
 		palavrasSeparadas = new ArrayList<String>();
 	}
 	
-	public static void formataPalavrasSeparadas() {
+	private static void formataPalavrasSeparadas() {
 		List<String> palavrasSeparadasComSiglasENumeros = new ArrayList<String>();
 		String palavraNumero = "";
 		String palavraSigla = "";
@@ -93,59 +93,44 @@ public class CamelCaseConversor {
 			String palavra = palavraI.next();
 			
 			if(éPalavraCompleta(palavra)) {
-				if(!palavraNumero.isEmpty()) {
-					palavrasSeparadasComSiglasENumeros.add(palavraNumero);
-					palavraNumero = "";
-				}
-
-				if(!palavraSigla.isEmpty()) {
-					palavrasSeparadasComSiglasENumeros.add(palavraSigla);
-					palavraSigla = "";
-				}
-				
+				palavraNumero = adicionaPalavraNaoVaziaELimpa(palavrasSeparadasComSiglasENumeros, palavraNumero);
+				palavraSigla = adicionaPalavraNaoVaziaELimpa(palavrasSeparadasComSiglasENumeros, palavraSigla);
 				palavrasSeparadasComSiglasENumeros.add(palavra);
 			} else {
 				char elemento = palavra.charAt(0);
 				
 				if(Character.isDigit(elemento)) {
-					palavraNumero += palavra.toUpperCase();
-					if(!palavraSigla.isEmpty()) {
-						palavrasSeparadasComSiglasENumeros.add(palavraSigla);
-						palavraSigla = "";
-					}
+					palavraNumero += palavra;
+					palavraSigla = adicionaPalavraNaoVaziaELimpa(palavrasSeparadasComSiglasENumeros, palavraSigla);
 				}
 				
 				if(Character.isAlphabetic(elemento)) {
 					palavraSigla += palavra.toUpperCase();
-					if(!palavraNumero.isEmpty()) {
-						palavrasSeparadasComSiglasENumeros.add(palavraNumero);
-						palavraNumero = "";
-					}
+					palavraNumero = adicionaPalavraNaoVaziaELimpa(palavrasSeparadasComSiglasENumeros, palavraNumero);
 				}
 			}
 			
 		}
 
-		if(!palavraNumero.isEmpty()) {
-			palavrasSeparadasComSiglasENumeros.add(palavraNumero);
-			palavraNumero = "";
-		}
+		palavraNumero = adicionaPalavraNaoVaziaELimpa(palavrasSeparadasComSiglasENumeros, palavraNumero);
 		
-		if(!palavraSigla.isEmpty()) {
-			palavrasSeparadasComSiglasENumeros.add(palavraSigla);
-			palavraSigla = "";
-		}
+		palavraSigla = adicionaPalavraNaoVaziaELimpa(palavrasSeparadasComSiglasENumeros, palavraSigla);
 		
 		palavrasSeparadas = palavrasSeparadasComSiglasENumeros;
 	}
 	
-	public static void adicionaSiglaENumeroSeNaoVazio() {
-		
+	
+	private static String adicionaPalavraNaoVaziaELimpa(
+			List<String> palavrasSeparadasComSiglasENumeros, String palavra
+			) {
+		if(!palavra.isEmpty()) {
+			palavrasSeparadasComSiglasENumeros.add(palavra);
+			palavra = "";
+		}
+		return palavra;
 	}
-	
-	
-	
-	public static boolean éPalavraCompleta(String palavra) {
+
+	private static boolean éPalavraCompleta(String palavra) {
 		if(palavra.length() == 1)
 			return false;
 		return true;
