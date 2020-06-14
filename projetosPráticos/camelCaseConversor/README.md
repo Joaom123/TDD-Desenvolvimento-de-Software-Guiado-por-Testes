@@ -15,4 +15,4 @@ O método deve possuir a seguinte assinatura: "public static List<String> conver
 - [x] recupera10Primeiros - “recupera”, “10”, “primeiros”
 - [x] 10Primeiros - Inválido, não deve começar com números
 - [x] nome#Composto - Inválido, caracteres especiais não são permitidos, somente letras e números
-- [ ] Extra: Tenho2CNPJ - "tenho", "2", "CNPJ"
+- [x] Extra: Tenho2CNPJ - "tenho", "2", "CNPJ"
