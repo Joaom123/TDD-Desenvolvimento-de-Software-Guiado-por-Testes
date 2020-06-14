@@ -7,8 +7,8 @@ import camelCaseConversor.src.exception.ComecaComNumeroException;
 import camelCaseConversor.src.exception.TemCaractereEspecialException;
 
 public class CamelCaseConversor {
-	public static List<String> palavrasSeparadas;
-	public static String palavraSeparada;
+	private static List<String> palavrasSeparadas;
+	private static String palavraSeparada;
 	
 	public static List<String> converterCamelCase (String fraseCamelCase) 
 			throws ComecaComNumeroException, TemCaractereEspecialException {
@@ -113,7 +113,6 @@ public class CamelCaseConversor {
 		}
 
 		palavraNumero = adicionaPalavraNaoVaziaELimpa(palavrasSeparadasComSiglasENumeros, palavraNumero);
-		
 		palavraSigla = adicionaPalavraNaoVaziaELimpa(palavrasSeparadasComSiglasENumeros, palavraSigla);
 		
 		palavrasSeparadas = palavrasSeparadasComSiglasENumeros;
